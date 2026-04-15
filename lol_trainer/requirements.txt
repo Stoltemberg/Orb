@@ -1,0 +1,5 @@
+# lol_trainer — dependências
+ultralytics>=8.0
+dearpygui>=1.9
+opencv-python
+numpy

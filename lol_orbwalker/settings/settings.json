@@ -1,0 +1,19 @@
+{
+  "hotkeys": {
+    "orbwalk": "space",
+    "lasthit": "x",
+    "laneclear": "v",
+    "harass": "c",
+    "toggle_pause": "f10"
+  },
+  "orbwalker": {
+    "ping_offset_ms": 0,
+    "humanizer_min": 0.005,
+    "humanizer_max": 0.02,
+    "windup_buffer": 0.06666666666666667
+  },
+  "vision": {
+    "yolo_enabled": false,
+    "target_fps": 120
+  }
+}

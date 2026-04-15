@@ -1,0 +1,7 @@
+# lol_orbwalker — dependências
+opencv-python
+mss
+numpy
+dearpygui>=1.9
+requests
+pywin32

@@ -1,0 +1,2 @@
+# YOLO format labels go here (one .txt per image)
+# Each line: class_id center_x center_y width height (normalized 0-1)
