@@ -138,7 +138,7 @@ class ExternalOrbwalker:
         
         # Ativar visão no engine e carregar script do campeão
         self.engine.use_vision = True 
-        # self.engine.script = get_script(raw, self.riot_api, self.champion_data)  # Scripts desativados
+        # self.engine.script = get_script(raw, self.riot_api, self.champion_data)
         self.engine.script = None
         
         # Permitir que as threads rodem antes de iniciá-las!

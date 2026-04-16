@@ -206,7 +206,9 @@ class OrbwalkerEngine:
                 target_mock = None
                 
                 # Sincronizar cursor se houver alvo e visão ativa
-                saved_cursor = None
+                # [Modificado: Teleporte do cursor foi desativado a pedido do usuário]
+                # Para evitar flicking e perda de controle do personagem, os casts
+                # ocorrerão onde o mouse físico do usuário estivar no momento.
                 if self.use_vision and vision_target:
                     from vision.entity_classifier import DetectedEntity, EntityType
                     target_mock = DetectedEntity(
@@ -215,21 +217,10 @@ class OrbwalkerEngine:
                         screen_y=vision_target[1],
                         health_bar=None, confidence=1.0, has_level=False
                     )
-                    
-                    # Mover cursor para o script conjurar no alvo (com humanization jitter)
-                    point = ctypes.wintypes.POINT()
-                    user32.GetCursorPos(ctypes.byref(point))
-                    saved_cursor = (point.x, point.y)
-                    # Teleporte instantâneo para evitar flick e perda de controle do mouse
-                    user32.SetCursorPos(int(vision_target[0]), int(vision_target[1]))
 
                 # Executar script
                 casted = self.script.execute(target_mock, self.mode)
                 
-                # Restaurar cursor
-                if saved_cursor:
-                    user32.SetCursorPos(saved_cursor[0], saved_cursor[1])
-
                 if casted:
                     # Se conjurou algo com cast time (Q), resetamos os timers e esperamos
                     self.reset_attack_timer()
@@ -245,28 +236,17 @@ class OrbwalkerEngine:
             if allow_aa and self.nextAttack < now:
                 self.nextInput = now + self.MinInputDelay
 
-                saved_cursor = None
-
                 # ── Se a visão está ativa E encontrou um alvo, mover cursor ──
+                # [Modificado: Teleporte do mouse durante ataques removido!]
+                # O usuário precisa manter o mouse físico no quadrante geral do inimigo e 
+                # ter a opção "Atacar no Movimento no Cursor" ligada nas config do lol.
                 if self.use_vision:
                     vision_target, vision_type = self.get_vision_target()
-                    if vision_target is not None:
-                        # Salvar posição original do cursor
-                        point = ctypes.wintypes.POINT()
-                        user32.GetCursorPos(ctypes.byref(point))
-                        saved_cursor = (point.x, point.y)
-                        
-                        # Teleporte instantâneo para evitar arrastar o cursor do usuário
-                        user32.SetCursorPos(int(vision_target[0]), int(vision_target[1]))
 
                 # ── Attack input: A + Left Click (idêntico ao auto-kite-bot) ──
                 # Usamos delays mínimos (1-3ms) para não prender o mouse na cara do inimigo
                 Keyboard.press_key(DIK_A, min_delay=0.001, max_delay=0.003)
                 Mouse.mouse_click(Mouse.Buttons.Left, min_delay=0.001, max_delay=0.003)
-
-                # ── Restaurar cursor se foi movido pela visão ──
-                if saved_cursor is not None:
-                    user32.SetCursorPos(saved_cursor[0], saved_cursor[1])
 
                 attackTime = time.perf_counter()
 

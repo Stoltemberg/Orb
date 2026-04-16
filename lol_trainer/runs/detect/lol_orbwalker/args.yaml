@@ -1,8 +1,8 @@
 task: detect
 mode: train
-model: C:\Users\Administrator\Desktop\lol_trainer\runs\detect\lol_orbwalker\weights\best.pt
-data: C:\Users\Administrator\Desktop\lol_trainer\dataset\lol_dataset.yaml
-epochs: 405
+model: C:\Users\Administrator\Desktop\Orb\lol_trainer\runs\detect\lol_orbwalker\weights\best.pt
+data: C:\Users\Administrator\Desktop\Orb\lol_trainer\dataset\lol_dataset.yaml
+epochs: 18
 time: null
 patience: 100
 batch: 16
@@ -12,7 +12,7 @@ save_period: -1
 cache: false
 device: cpu
 workers: 8
-project: C:\Users\Administrator\Desktop\lol_trainer\runs\detect
+project: C:\Users\Administrator\Desktop\Orb\lol_trainer\runs\detect
 name: lol_orbwalker
 exist_ok: true
 pretrained: true
@@ -107,4 +107,4 @@ auto_augment: randaugment
 erasing: 0.4
 cfg: null
 tracker: botsort.yaml
-save_dir: C:\Users\Administrator\Desktop\lol_trainer\runs\detect\lol_orbwalker
+save_dir: C:\Users\Administrator\Desktop\Orb\lol_trainer\runs\detect\lol_orbwalker
